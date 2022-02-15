@@ -1,0 +1,18 @@
+include MANIFEST.in
+include requirements.txt
+include *.json
+include *.md
+include *.py
+include *.txt
+recursive-include cure *.css
+recursive-include cure *.csv
+recursive-include cure *.html
+recursive-include cure *.ico
+recursive-include cure *.js
+recursive-include cure *.json
+recursive-include cure *.md
+recursive-include cure *.png
+recursive-include cure *.py
+recursive-include cure *.svg
+recursive-include cure *.txt
+recursive-exclude cure *.pyc
