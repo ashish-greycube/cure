@@ -1,0 +1,175 @@
+{
+ "actions": [],
+ "autoname": "naming_series:",
+ "creation": "2022-02-15 08:31:36.300586",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "tender_name",
+  "tender_amount",
+  "cb_1",
+  "tender_date",
+  "paid_amount",
+  "item_group_section_section",
+  "tender_info_item_detail",
+  "total_planned_amount"
+ ],
+ "fields": [
+  {
+   "default": "TN.#",
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "TN.#",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tender_name",
+   "fieldtype": "Data",
+   "label": "Tender Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tender_amount",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Tender Amount"
+  },
+  {
+   "fieldname": "cb_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Today",
+   "fieldname": "tender_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Tender Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "paid_amount",
+   "fieldtype": "Currency",
+   "label": "Paid Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "item_group_section_section",
+   "fieldtype": "Section Break",
+   "label": "Item Group Section"
+  },
+  {
+   "fieldname": "tender_info_item_detail",
+   "fieldtype": "Table",
+   "label": "Tender Info Item Detail",
+   "options": "Tender Info Item Detail"
+  },
+  {
+   "fieldname": "total_planned_amount",
+   "fieldtype": "Currency",
+   "label": "Total Planned Amount",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "custom": 1,
+   "group": "Reference",
+   "link_doctype": "Sales Order",
+   "link_fieldname": "tender_info_cf"
+  },
+  {
+   "custom": 1,
+   "group": "Reference",
+   "link_doctype": "Sales Invoice",
+   "link_fieldname": "tender_info_cf"
+  }
+ ],
+ "modified": "2022-02-15 08:38:38.364085",
+ "modified_by": "Administrator",
+ "module": "Cure",
+ "name": "Tender Info",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales Master Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "search_fields": "tender_name,tender_amount,tender_date",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "title_field": "tender_name"
+}
