@@ -95,13 +95,23 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+doc_events = {
+	"Sales Order": {
+		"validate": "cure.cure.doctype.tender_info.tender_info.validate_against_tender_info",
+		"on_submit": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info",
+		"on_cancel": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info",
+		"on_update_after_submit": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info",
+	},
+	"Sales Invoice": {
+		"validate": "cure.cure.doctype.tender_info.tender_info.validate_against_tender_info",
+		"on_submit": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info",
+		"on_cancel": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info"
+	},
+	"Payment Entry": {
+		"on_submit": "cure.cure.doctype.tender_info.tender_info.update_paid_amount_of_tender_info",
+		"on_cancel": "cure.cure.doctype.tender_info.tender_info.update_paid_amount_of_tender_info",
+	}		
+}
 
 # Scheduled Tasks
 # ---------------
