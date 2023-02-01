@@ -1,0 +1,42 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2023-01-31 11:35:05.497208",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "process_payroll_accounting_entry_based_on_employee_cf"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "description": "If checked, Payroll Payable will be booked against each employee",
+   "fieldname": "process_payroll_accounting_entry_based_on_employee_cf",
+   "fieldtype": "Check",
+   "label": "Enable : Process Payroll Accounting Entry based on Employee"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2023-01-31 13:19:49.288733",
+ "modified_by": "Administrator",
+ "module": "Cure",
+ "name": "Cure Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC"
+}

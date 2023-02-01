@@ -87,9 +87,9 @@ app_license = "MIT"
 # ---------------
 # Override standard doctype classes
 
-# override_doctype_class = {
-# 	"ToDo": "custom_app.overrides.CustomToDo"
-# }
+override_doctype_class = {
+	"Payroll Entry": "cure.custom_payroll_entry.GCPayroll_Entry"
+}
 
 # Document Events
 # ---------------

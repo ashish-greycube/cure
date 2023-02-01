@@ -49,9 +49,18 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Cure Settings",
+   "link_to": "Cure Settings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2022-02-16 10:35:49.906135",
+ "modified": "2023-01-31 11:36:05.953500",
  "modified_by": "Administrator",
  "module": "Cure",
  "name": "Cure",
