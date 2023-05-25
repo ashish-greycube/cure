@@ -83,7 +83,7 @@ def update_ordered_or_actual_amount_of_tender_info(self,method):
 						item_group_found=True
 						msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is deducted from ordered amount of tender info {4}. <br>'
 						.format(item.idx,item.item_name,item.item_group,item.base_amount,frappe.bold(get_link_to_form('Tender Info',self.tender_info_cf))))	
-					elif self.doctype=='Sales Invoice' and method=='on_submit' :
+					elif self.doctype=='Sales Invoice' and method=='on_submit' and self.status and self.status in ('Paid','Overdue') :
 						ti_item.billed_amount=ti_item.billed_amount+item.base_amount
 						item_group_found=True
 						msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is added to billed amount of tender info {4}. <br>'
