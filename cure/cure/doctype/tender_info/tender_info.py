@@ -6,10 +6,32 @@ import frappe, erpnext, json
 from frappe import _
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
-from frappe.utils import get_link_to_form,cint, flt
+from frappe.utils import get_link_to_form,cint, flt,today
 from erpnext.setup.doctype.item_group.item_group import get_child_item_groups
 
 class TenderInfo(Document):
+	def onload(self):
+		if self.tender_info_item_detail:
+			for ti_item in self.tender_info_item_detail:
+				msg=''
+				total_item_group_amount=0
+				values = {'item_group': ti_item.item_group, 'tender_info_cf':self.name}
+				total_item_group_amount= frappe.db.sql("""SELECT IFNULL(sum(tsit.base_amount),0) as total_item_group_amount 
+				FROM `tabSales Invoice` as tsi inner join `tabSales Invoice Item` as tsit on tsi.name=tsit.parent 
+				WHERE  tsi.status in ('Paid','Overdue')
+				and tsi.tender_info_cf = %(tender_info_cf)s
+				and tsit.item_group = %(item_group)s""", values=values, as_dict=1,debug=1)
+				print('total_item_group_amount',total_item_group_amount)
+				if len(total_item_group_amount)>0:
+					total_item_group_amount=total_item_group_amount[0].total_item_group_amount
+				if ti_item.billed_amount!=total_item_group_amount:
+					ti_item.billed_amount=total_item_group_amount		
+					msg += _('Row #{0} : item group {1}, its billed amount is updated to {2}. <br>'
+									.format(ti_item.idx,ti_item.item_group,total_item_group_amount))	
+							
+		if len(msg)>0:
+			self.add_comment("Comment", frappe.bold(_("Auto Update:")) + "<br>" + msg)			
+
 	def validate(self):
 		self.validate_for_duplicate_item_groups()	
 		self.sum_planned_amount()
@@ -83,16 +105,16 @@ def update_ordered_or_actual_amount_of_tender_info(self,method):
 						item_group_found=True
 						msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is deducted from ordered amount of tender info {4}. <br>'
 						.format(item.idx,item.item_name,item.item_group,item.base_amount,frappe.bold(get_link_to_form('Tender Info',self.tender_info_cf))))	
-					elif self.doctype=='Sales Invoice' and method=='on_submit' :
-						ti_item.billed_amount=ti_item.billed_amount+item.base_amount
-						item_group_found=True
-						msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is added to billed amount of tender info {4}. <br>'
-						.format(item.idx,item.item_name,item.item_group,item.base_amount,frappe.bold(get_link_to_form('Tender Info',self.tender_info_cf))))	
-					elif self.doctype=='Sales Invoice' and method=='on_cancel':
-						ti_item.billed_amount=ti_item.billed_amount-item.base_amount
-						item_group_found=True
-						msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is deducted from billed amount of tender info {4}. <br>'
-						.format(item.idx,item.item_name,item.item_group,item.base_amount,frappe.bold(get_link_to_form('Tender Info',self.tender_info_cf))))							
+					# elif self.doctype=='Sales Invoice' and method=='on_submit' :
+					# 	ti_item.billed_amount=ti_item.billed_amount+item.base_amount
+					# 	item_group_found=True
+					# 	msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is added to billed amount of tender info {4}. <br>'
+					# 	.format(item.idx,item.item_name,item.item_group,item.base_amount,frappe.bold(get_link_to_form('Tender Info',self.tender_info_cf))))	
+					# elif self.doctype=='Sales Invoice' and method=='on_cancel':
+					# 	ti_item.billed_amount=ti_item.billed_amount-item.base_amount
+					# 	item_group_found=True
+					# 	msg += _('Row #{0} : {1} item of item group {2}, its amount {3} is deducted from billed amount of tender info {4}. <br>'
+					# 	.format(item.idx,item.item_name,item.item_group,item.base_amount,frappe.bold(get_link_to_form('Tender Info',self.tender_info_cf))))							
 		if item_group_found==True:
 			ti.save(ignore_permissions=True)
 			if len(msg)>0:

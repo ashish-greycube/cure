@@ -104,7 +104,7 @@ doc_events = {
 	},
 	"Sales Invoice": {
 		"validate": "cure.cure.doctype.tender_info.tender_info.validate_against_tender_info",
-		"on_submit": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info",
+		# "on_submit": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info",
 		"on_cancel": "cure.cure.doctype.tender_info.tender_info.update_ordered_or_actual_amount_of_tender_info"
 	},
 	"Payment Entry": {
